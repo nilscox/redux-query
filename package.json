@@ -4,6 +4,12 @@
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": "nilscox <nils@nils.cx>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nilscox/redux-query.git"
+  },
   "engines": {
     "node": "^16.0.0"
   },
