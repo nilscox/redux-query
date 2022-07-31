@@ -1,6 +1,6 @@
 {
   "name": "@nilscox/redux-query",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -13,6 +13,9 @@
   "engines": {
     "node": "^16.0.0"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "mocha -r ts-node/register ---extension ts 'src/**/*.spec.ts'",
     "build": "rm -rf dist; rollup -c rollup.config.js"
