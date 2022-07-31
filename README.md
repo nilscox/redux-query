@@ -2,16 +2,13 @@
 
 ⚠️ This is a work in progress. You should not it.
 
-> If you're looking for a library to store the network requests in a redux store, take a look at the existing
-> (and supported) packages from
-> [redux's documentation](https://redux.js.org/introduction/ecosystem#entities-and-collections).
+> If you're looking for a library to store the network requests in a redux store, take a look at the existing (and supported) packages from [redux's documentation](https://redux.js.org/introduction/ecosystem#entities-and-collections).
 
 ## Goals
 
 This project is a small library allowing to manage the state of async flows (like XHRs) with redux.
 
-Basically, it reduces the boilerplate of handling async states (pending, success, error) and their associated
-results. It also allows to easily store and manipulate normalized entities.
+Basically, it reduces the boilerplate of handling async states (pending, success, error) and their associated results. It also allows to easily store and manipulate normalized entities.
 
 ## Examples
 
@@ -193,9 +190,7 @@ The store's state is now
 
 ### Real world example
 
-This is an example usage of this library from
-[the app folder](./app/slices/comment/queries/get-thread-comments.ts), using
-[redux-thunk](https://github.com/reduxjs/redux-thunk).
+This is an example usage of this library from [the app folder](./app/slices/comment/queries/get-thread-comments.ts), using [redux-thunk](https://github.com/reduxjs/redux-thunk).
 
 ```ts
 type Key = {
@@ -234,12 +229,9 @@ export const fetchThreadComments = (threadId: string, sort: Key['sort']): Thunk 
 
 ## Why not using redux toolkit query?
 
-[RTK Query](https://redux-toolkit.js.org/rtk-query) is a great library, but it is also a _big_ library. Using
-it to manage an app's state (an app's core logic) would create some tight coupling between the two. This is
-something you might want to avoid when you don't need everything that's included in RTK Query.
+[RTK Query](https://redux-toolkit.js.org/rtk-query) is a great library, but it is also a _big_ library. Using it to manage an app's state (an app's core logic) would create some tight coupling between the two. This is something you might want to avoid when you don't need everything that's included in RTK Query.
 
-Plus, it's always good to have multiple options to address the same problem, especially when the options are
-opinionated!
+Plus, it's always good to have multiple options to address the same problem, especially when the options are opinionated!
 
 ## Any question?
 
