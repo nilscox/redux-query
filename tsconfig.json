@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "include": ["app/**/*"],
+  "compilerOptions": {
+    "noErrorTruncation": true,
+    "baseUrl": "lib",
+    "paths": {
+      "lib": ["."]
+    }
+  }
+}

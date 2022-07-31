@@ -1,0 +1,12 @@
+{
+  "include": ["lib/**/*"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ES6",
+    "declaration": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true
+  }
+}
