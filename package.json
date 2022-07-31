@@ -1,16 +1,18 @@
 {
   "name": "@nilscox/redux-query",
   "version": "0.1.0",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "engines": {
     "node": "^16.0.0"
   },
   "scripts": {
     "test": "mocha -r ts-node/register ---extension ts 'src/**/*.spec.ts'",
-    "build": "tsc -p tsconfig.lib.json"
+    "build": "rm -rf dist; rollup -c rollup.config.js"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^8.3.4",
     "@types/mocha": "^9.1.1",
     "@types/node": "^16.0.0",
     "@types/redux": "^3.6.0",
@@ -20,7 +22,9 @@
     "normalizr": "^3.6.2",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "rollup": "^2.77.2",
     "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
