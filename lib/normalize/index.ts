@@ -1,3 +1,4 @@
+export { createNormalizedUpdater } from './create-normalized-updater';
 export { createNormalizedActions } from './normalize-actions';
 export { normalized } from './normalize-reducer';
 export { createNormalizedSelectors } from './normalize-selectors';
