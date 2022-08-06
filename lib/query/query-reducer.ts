@@ -1,8 +1,8 @@
-import { AnyAction } from 'redux';
+import { AnyAction, Reducer } from 'redux';
 
-import { isSetPendingAction, isSetSuccessAction, isSetErrorAction } from './query-actions';
-import { findQuery } from './query-utils';
+import { isSetErrorAction, isSetPendingAction, isSetSuccessAction } from './query-actions';
 import { Queries, Query, QueryState } from './query-types';
+import { findQuery } from './query-utils';
 
 const defaultQuery = <K, R, E>(key: K): Query<K, R, E> => ({
   key,
@@ -23,8 +23,11 @@ const updateQuery = <K, R, E>(queries: Queries<K, R, E>, key: K, updates: Partia
   }
 };
 
-export const queryReducer = <K, R, E>(name: string) => {
-  return (state: Queries<K, R, E> = [], action: AnyAction) => {
+export const queryReducer = <K, R, E>(
+  name: string,
+  fallbackReducer?: QueryFallbackReducer<K, R, E>
+): Reducer<Queries<K, R, E>, AnyAction> => {
+  return (state = [], action) => {
     if (isSetPendingAction<K>(name, action)) {
       return updateQuery<K, R, E>(state, action.key, { state: QueryState.pending });
     }
@@ -37,6 +40,18 @@ export const queryReducer = <K, R, E>(name: string) => {
       return updateQuery<K, R, E>(state, action.key, { state: QueryState.error, error: action.error });
     }
 
+    if (fallbackReducer) {
+      const next: Queries<K, R, E> = state.slice();
+
+      for (let i = 0; i < state.length; ++i) {
+        next[i] = fallbackReducer(state[i] as Query<K, R, E>, action);
+      }
+
+      return next;
+    }
+
     return state;
   };
 };
+
+export type QueryFallbackReducer<K, R, E> = (query: Query<K, R, E>, action: AnyAction) => Query<K, R, E>;
