@@ -1,5 +1,7 @@
 import { AnyAction, Reducer } from 'redux';
 
+import { isClearReduxQueryAction } from '../utils/clear-redux-query';
+
 import { isSetErrorAction, isSetPendingAction, isSetSuccessAction } from './query-actions';
 import { Queries, Query, QueryState } from './query-types';
 import { findQuery } from './query-utils';
@@ -23,11 +25,12 @@ const updateQuery = <K, R, E>(queries: Queries<K, R, E>, key: K, updates: Partia
   }
 };
 
-export const queryReducer = <K, R, E>(
-  name: string,
-  fallbackReducer?: QueryFallbackReducer<K, R, E>
-): Reducer<Queries<K, R, E>, AnyAction> => {
-  return (state = [], action) => {
+export const queryReducer = <K, R, E>(name: string, fallbackReducer?: QueryFallbackReducer<K, R, E>) => {
+  const reducer: Reducer<Queries<K, R, E>, AnyAction> = (state = [], action) => {
+    if (isClearReduxQueryAction(action)) {
+      return [];
+    }
+
     if (isSetPendingAction<K>(name, action)) {
       return updateQuery<K, R, E>(state, action.key, { state: QueryState.pending });
     }
@@ -52,6 +55,8 @@ export const queryReducer = <K, R, E>(
 
     return state;
   };
+
+  return reducer;
 };
 
 export type QueryFallbackReducer<K, R, E> = (query: Query<K, R, E>, action: AnyAction) => Query<K, R, E>;

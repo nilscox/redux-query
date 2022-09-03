@@ -1,16 +1,19 @@
-import { AnyAction } from 'redux';
-import { List } from './list-types';
+import { Reducer } from 'redux';
+
+import { isClearReduxQueryAction } from '../utils/clear-redux-query';
+
 import {
-  isPrependAction,
   isAppendAction,
-  isInsertAction,
-  isRemoveAction,
-  isClearAction,
   isAppendManyAction,
+  isClearAction,
+  isInsertAction,
+  isPrependAction,
+  isRemoveAction,
 } from './list-actions';
+import { List } from './list-types';
 
 export const listReducer = (name: string) => {
-  return (state: List = [], action: AnyAction) => {
+  const reducer: Reducer<List> = (state = [], action) => {
     if (isPrependAction(name, action)) {
       return [action.id, ...state];
     }
@@ -37,10 +40,12 @@ export const listReducer = (name: string) => {
       return [...state.slice(0, index), ...state.slice(index + 1)];
     }
 
-    if (isClearAction(name, action)) {
+    if (isClearReduxQueryAction(action) || isClearAction(name, action)) {
       return [];
     }
 
     return state;
   };
+
+  return reducer;
 };

@@ -1,5 +1,7 @@
 import { normalize } from 'normalizr';
-import { AnyAction } from 'redux';
+import { AnyAction, Reducer } from 'redux';
+
+import { isClearReduxQueryAction } from '../utils/clear-redux-query';
 
 import {
   isSetEntitiesAction,
@@ -47,7 +49,11 @@ export const normalized = <E>(
     }
   };
 
-  return (state: Record<string, E> = {}, action: AnyAction): Record<string, E> => {
+  const reducer: Reducer<Record<string, E>> = (state = {}, action) => {
+    if (isClearReduxQueryAction(action)) {
+      return {};
+    }
+
     const normalized = getNormalized(state, action);
 
     if (normalized?.entities[name]) {
@@ -60,4 +66,6 @@ export const normalized = <E>(
 
     return state;
   };
+
+  return reducer;
 };
