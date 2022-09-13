@@ -46,7 +46,6 @@ export const queryReducer = <K, R, E>(name: string, fallbackReducer?: QueryFallb
     if (isSetErrorAction<K, E>(name, action)) {
       return updateQuery<K, R, E>(state, action.key, {
         state: QueryState.error,
-        result: undefined,
         error: action.error,
       });
     }
