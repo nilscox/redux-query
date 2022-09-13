@@ -36,11 +36,19 @@ export const queryReducer = <K, R, E>(name: string, fallbackReducer?: QueryFallb
     }
 
     if (isSetSuccessAction<K, R>(name, action)) {
-      return updateQuery<K, R, E>(state, action.key, { state: QueryState.success, result: action.result });
+      return updateQuery<K, R, E>(state, action.key, {
+        state: QueryState.success,
+        result: action.result,
+        error: undefined,
+      });
     }
 
     if (isSetErrorAction<K, E>(name, action)) {
-      return updateQuery<K, R, E>(state, action.key, { state: QueryState.error, error: action.error });
+      return updateQuery<K, R, E>(state, action.key, {
+        state: QueryState.error,
+        result: undefined,
+        error: action.error,
+      });
     }
 
     if (fallbackReducer) {
