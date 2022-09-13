@@ -5,7 +5,7 @@ const compareKeys = <K>(k1: K, k2: K) => {
     return false;
   }
 
-  if (typeof k1 !== 'object') {
+  if (typeof k1 !== 'object' || k1 === null) {
     return k1 === k2;
   }
 
